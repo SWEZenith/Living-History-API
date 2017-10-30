@@ -7,7 +7,9 @@ steps:
   args: ['push', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['tag', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME:latest']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['container', 'clusters', 'get-credentials', 'living-history-api-cluster-1', '--zone', 'europe-west3-a', '--project', '$PROJECT_ID']
 - name: 'gcr.io/cloud-builders/kubectl'
   env: ['CLOUDSDK_COMPUTE_ZONE=europe-west3-a', 'CLOUDSDK_CONTAINER_CLUSTER=living-history-api-cluster-1']
   args: ['set', 'image', 'deployment/living-history-api', 'living-history-api=eu.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
-images: ['eu.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME:latest']
+images: ['eu.gcr.io/$PROJECT_ID/$REPO_NAME:latest']
