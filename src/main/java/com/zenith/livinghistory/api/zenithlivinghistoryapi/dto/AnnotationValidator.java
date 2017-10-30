@@ -30,7 +30,7 @@ public class AnnotationValidator implements ConstraintValidator<AnnotationValid,
         return true;
     }
 
-    public String validate(Annotation annotation) throws IOException, JsonLdError {
+    public static String validate(Annotation annotation) throws IOException, JsonLdError {
 
         // Create new object mapper instance
         ObjectMapper mp = new ObjectMapper();
