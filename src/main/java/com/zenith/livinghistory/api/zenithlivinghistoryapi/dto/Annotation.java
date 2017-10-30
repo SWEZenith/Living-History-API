@@ -5,10 +5,12 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
 @Document(collection = "Annotations")
+@AnnotationValid
 public class Annotation implements Serializable {
 
     /*
@@ -52,22 +54,28 @@ public class Annotation implements Serializable {
     }
 
     @JsonProperty("@context")
+    @NotNull
     private String context;
 
     @Id
     private String id;
 
+    @NotNull
     private String type;
 
     @Indexed
+    @NotNull
     private String creator;
 
+    @NotNull
     private DateTime created;
 
     private DateTime modified;
 
+    @NotNull
     private AnnotationBody body;
 
+    @NotNull
     @Indexed
     private AnnotationTarget target;
 
