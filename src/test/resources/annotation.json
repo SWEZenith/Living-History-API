@@ -1,0 +1,20 @@
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "type": "Annotation",
+  "creator": "http://living-history.gkc.host/api/v1/users/gokce",
+  "created": "2015-01-28T12:00:00Z",
+  "modified": "2015-01-29T09:00:00Z",
+  "body": {
+    "type": "TextualBody",
+    "value": "<p>Bir paragraf!</p>",
+    "format": "text/html",
+    "language": "tr",
+    "creator": "http://living-history.gkc.host/api/v1/users/gokce",
+    "created": "2014-06-02T17:00:00Z"
+  },
+  "target": {
+    "id": "http://example.com/image2.jpg#xywh=200,200,400,500",
+    "type": "Image",
+    "format": "image/jpeg"
+  }
+}

@@ -8,8 +8,6 @@ import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request.SignUpReq
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Service for user.
  */

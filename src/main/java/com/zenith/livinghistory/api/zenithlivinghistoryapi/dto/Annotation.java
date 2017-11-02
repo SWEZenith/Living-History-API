@@ -1,5 +1,6 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
@@ -8,9 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 
 @Document(collection = "Annotations")
-@AnnotationValid
+//@AnnotationValid
 public class Annotation implements Serializable {
 
     /*
@@ -68,8 +70,10 @@ public class Annotation implements Serializable {
     private String creator;
 
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private DateTime created;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private DateTime modified;
 
     @NotNull

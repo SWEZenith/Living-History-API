@@ -1,5 +1,6 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
@@ -42,6 +43,7 @@ public class AnnotationBody implements Serializable {
 
     private String creator;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private DateTime created;
 
     public String getCreator() {
