@@ -33,4 +33,6 @@ public class AnnotationController {
     public Annotation get(@PathVariable("id") String id) {
         return annotationRepository.findOne(id);
     }
+
+    /* GetAnnotationsByContentID eklenecek */
 }
