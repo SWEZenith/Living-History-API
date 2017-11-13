@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Document(collection = "Contents")
 public class Content implements Serializable {
@@ -62,7 +63,8 @@ public class Content implements Serializable {
 
     private String creator;
 
-
+//@onetomanyrelationship
+	//private List<Annotation> annotations;
 
 	public String getTitle() {
 		return title;
