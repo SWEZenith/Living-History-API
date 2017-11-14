@@ -32,21 +32,14 @@ public class AnnotationValidator implements ConstraintValidator<AnnotationValid,
 
     public static String validate(Annotation annotation) throws IOException, JsonLdError {
 
-        // Create new object mapper instance
         ObjectMapper mp = new ObjectMapper();
-
-        // Create jsonObject from given object
         Object jsonObject = mp.convertValue(annotation, LinkedHashMap.class);
 
-        // Create a context JSON map containing prefixes and definitions
         Map context = new HashMap();
-        // Customise context...
+        context.put("@context", "http://www.w3.org/ns/anno.jsonld");
 
-        // Create an instance of JsonLdOptions with the standard JSON-LD options
         JsonLdOptions options = new JsonLdOptions();
-        // Customise options...
 
-        // Call whichever JSON-LD function you want! (e.g. compact)
         Object compact = JsonLdProcessor.compact(jsonObject, context, options);
 
         return JsonUtils.toPrettyString(compact);

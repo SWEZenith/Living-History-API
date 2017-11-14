@@ -12,6 +12,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target( {TYPE} )
 public @interface AnnotationValid {
+
     String message() default "Invalid annotation: Cannot validate JSON-LD";
 
     Class<?>[] groups() default {};
