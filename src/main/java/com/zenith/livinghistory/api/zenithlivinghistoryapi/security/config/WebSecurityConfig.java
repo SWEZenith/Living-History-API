@@ -149,25 +149,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // Configure sesssion.
             .and()
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
             // Configure end points do not require authentication.
-            .and()
-            .authorizeRequests()
-            .antMatchers(LOGIN_ENTRY_POINT).permitAll() // Login end-point
-            .antMatchers(TOKEN_REFRESH_ENTRY_POINT).permitAll() // Token refresh end-point
-            .antMatchers(REGISTRATION_ENTRY_POINT).permitAll() // Registration end-point
-
-            // Configure protection of end points require authentication.
-            .and()
-            .authorizeRequests()
-            .antMatchers(TOKEN_BASED_AUTH_ENTRY_POINT).authenticated() // Protected API End-points
-
-            // Configure filtering classes.
-            .and()
-            .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(buildLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+//            .and()
+//            .authorizeRequests()
+//            .antMatchers(LOGIN_ENTRY_POINT).permitAll() // Login end-point
+//            .antMatchers(TOKEN_REFRESH_ENTRY_POINT).permitAll() // Token refresh end-point
+//            .antMatchers(REGISTRATION_ENTRY_POINT).permitAll() // Registration end-point
+//
+//            // Configure protection of end points require authentication.
+//            .and()
+//            .authorizeRequests()
+//            .antMatchers(TOKEN_BASED_AUTH_ENTRY_POINT).authenticated() // Protected API End-points
+//
+//            // Configure filtering classes.
+//            .and()
+//            .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
+//            .addFilterBefore(buildLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
+//            .addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
     //endregion
 }
