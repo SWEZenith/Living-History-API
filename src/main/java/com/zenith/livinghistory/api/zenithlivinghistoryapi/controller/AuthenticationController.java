@@ -1,5 +1,6 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.UserModel;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.User;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request.SignUpRequest;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.services.UserService;
@@ -24,7 +25,7 @@ public class AuthenticationController {
     @RequestMapping(method = RequestMethod.POST, value = "/signup", produces = "application/json")
     public ResponseEntity<String> signup(@RequestBody SignUpRequest request) {
 //        TODO: We should check thet request.getPassword1() and request.getPassword2() are equal.
-        User user = userService.findByEmail(request.getEmail());
+        UserModel user = userService.findByEmail(request.getEmail());
 
 //        TODO: Do this kind of validations using filters.
         if (user != null) {

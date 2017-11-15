@@ -44,6 +44,7 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile group: 'com.github.jsonld-java', name: 'jsonld-java', version: '0.11.1'
 	compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
 	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version: '2.9.2'
@@ -51,6 +52,9 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '1.5.8.RELEASE'
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.0.0'
+	compile group: 'org.jadira.usertype', name: 'usertype.core', version: '5.0.0.GA'
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.1.RELEASE'
 	testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.0.0'

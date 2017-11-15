@@ -1,5 +1,7 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.AnnotationModel;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.ContentModel;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.AnnotationRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.ContentRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
@@ -25,10 +27,12 @@ public class AnnotationController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Annotation> create(@RequestBody @Valid Annotation annotation) {
-        Annotation savedAnnotation = annotationRepository.save(annotation);
-        Content content = contentRepository.findOne(annotation.getTarget().getId());
-        List<Annotation> annotations = content.getAnnotations();
+    // TODO: do not return model, return dto instead
+    public ResponseEntity<AnnotationModel> create(@RequestBody @Valid AnnotationModel annotation) {
+        // TODO: get dto instead of model
+        AnnotationModel savedAnnotation = annotationRepository.save(annotation);
+        ContentModel content = contentRepository.findOne(annotation.getContent().getId());
+        List<AnnotationModel> annotations = content.getAnnotations();
         if (annotations == null) {
             annotations = new ArrayList<>();
         }
@@ -39,12 +43,14 @@ public class AnnotationController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Annotation> getAll() {
+    // TODO: do not return model return dto instead
+    public List<AnnotationModel> getAll() {
         return this.annotationRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Annotation get(@PathVariable("id") String id) {
-        return annotationRepository.findOne(id);
+    // TODO: id might be string?
+    public ResponseEntity<AnnotationModel> get(@PathVariable("id") long id) {
+        return new ResponseEntity<>(annotationRepository.findOne(id), HttpStatus.OK);
     }
 }

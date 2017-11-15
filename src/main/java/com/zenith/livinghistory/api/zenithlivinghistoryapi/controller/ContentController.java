@@ -1,5 +1,6 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.ContentModel;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.ContentRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Content;
 import org.springframework.http.HttpStatus;
@@ -33,18 +34,21 @@ public class ContentController {
 //    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
-    public ResponseEntity<Content> create(@RequestBody Content content) {
-		contentRepository.insert(content);
+    // TODO: get dto instead of model
+    public ResponseEntity<ContentModel> create(@RequestBody ContentModel content) {
+		contentRepository.save(content);
         return new ResponseEntity<>(content, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/")
-    public List<Content> getAll() {
+    // TODO: return responseEntity
+    public List<ContentModel> getAll() {
         return this.contentRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Content get(@PathVariable("id") String id) {
+    // todo: id might be string
+    public ContentModel get(@PathVariable("id") Long id) {
         return contentRepository.findOne(id);
     }
 }

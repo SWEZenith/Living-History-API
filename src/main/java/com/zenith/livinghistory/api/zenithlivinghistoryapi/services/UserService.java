@@ -2,6 +2,7 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.services;
 
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserStatus;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserType;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.UserModel;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.UserRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.User;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request.SignUpRequest;
@@ -22,16 +23,19 @@ public class UserService {
         this.encoder = new BCryptPasswordEncoder();
     }
 
-    public User findByUsername(String username) {
+    public UserModel findByUsername(String username) {
         return repository.findFirstByUsername(username);
     }
 
-    public User findByEmail(String email) {
+    public UserModel findByEmail(String email) {
         return repository.findFirstByEmail(email);
     }
 
-    public User createUser(SignUpRequest request) {
-        User user = new User(request.getUsername(), encoder.encode(request.getPassword1()), request.getEmail(), UserStatus.ACTIVE, UserType.STANDARD);
-        return repository.insert(user);
+    public UserModel createUser(SignUpRequest request) {
+        UserModel user = new UserModel();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(encoder.encode(request.getPassword1()));
+        return repository.save(user);
     }
 }

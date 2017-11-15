@@ -3,3 +3,19 @@ zenith.security.jwt:
   refreshTokenExpTime: 60
   tokenIssuer: zenith
   tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
+
+spring:
+  datasource:
+      dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+      url: jdbc:postgresql://localhost:5432/livinghistory
+      username: gokceyucel
+      password: ''
+
+  jpa:
+      generate-ddl: true
+      properties:
+        hibernate:
+          generate_statistics: true
+          show_sql: true
+          dialect: org.hibernate.dialect.PostgreSQL9Dialect
+
