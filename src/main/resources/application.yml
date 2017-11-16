@@ -18,4 +18,3 @@ spring:
           generate_statistics: true
           show_sql: true
           dialect: org.hibernate.dialect.PostgreSQL9Dialect
-

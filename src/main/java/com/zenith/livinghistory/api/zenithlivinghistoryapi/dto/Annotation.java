@@ -2,19 +2,12 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.NotNull;
 
-import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
-
-@Document(collection = "Annotations")
 //@AnnotationValid
-public class Annotation implements Serializable {
+public class Annotation {
 
     /*
     * Example:
@@ -60,13 +53,11 @@ public class Annotation implements Serializable {
     @NotNull
     private String context;
 
-    @Id
     private String id;
 
     @NotNull
     private String type;
 
-    @Indexed
     @NotNull
     private String creator;
 
@@ -81,7 +72,6 @@ public class Annotation implements Serializable {
     private AnnotationBody body;
 
     @NotNull
-    @Indexed
     private AnnotationTarget target;
 
     public String getCreator() {

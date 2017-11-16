@@ -3,9 +3,7 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
 
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserStatus;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserType;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Users")
 public class User {
     private String username;
     private String password;

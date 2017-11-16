@@ -2,16 +2,11 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Document(collection = "Contents")
-public class Content implements Serializable {
-
+public class Content {
     /*
     * Example:
     *
@@ -41,18 +36,15 @@ public class Content implements Serializable {
 		this.date = date;
 		this.location = location;
 		this.creator = creator;
-//		this.annotations = new ArrayList<>();
 	}
 
     @JsonProperty("@contentType")
     private String contentType;
 
-    @Id
     private String id;
 
     private String title;
 
-    @Indexed
     private String description;
 
 	private String[] tags;
@@ -63,68 +55,7 @@ public class Content implements Serializable {
 
     private String creator;
 
-//    @DBRef
-//    @CascadeSave
-//    @Field("annotations")
     private List<Annotation> annotations;
-
-    public List<Annotation> getAnnotations() {
-        return annotations;
-    }
-
-    public void setAnnotations(List<Annotation> annotations) {
-        this.annotations = annotations;
-    }
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-
-	public String[] getTags() { return tags; }
-
-	public void setTags(String[] tags) { this.tags = tags; }
-
-
-	public DateTime getDate() {
-        return date;
-    }
-
-    public void setDate(DateTime date) {
-        this.date = date;
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     public String getContentType() {
         return contentType;
@@ -134,6 +65,45 @@ public class Content implements Serializable {
         this.contentType = contentType;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+
+    public DateTime getDate() {
+        return date;
+    }
+
+    public void setDate(DateTime date) {
+        this.date = date;
+    }
 
     public LocationBody getLocation() {
         return location;
@@ -143,4 +113,19 @@ public class Content implements Serializable {
         this.location = location;
     }
 
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public List<Annotation> getAnnotations() {
+        return annotations;
+    }
+
+    public void setAnnotations(List<Annotation> annotations) {
+        this.annotations = annotations;
+    }
 }
