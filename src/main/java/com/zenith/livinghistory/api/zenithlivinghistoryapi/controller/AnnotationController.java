@@ -4,9 +4,10 @@ import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.Annotation
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.ContentModel;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.AnnotationRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.ContentRepository;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Content;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request.AnnotationRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class AnnotationController {
     private AnnotationRepository annotationRepository;
     private ContentRepository contentRepository;
 
+    @Autowired
     public AnnotationController(AnnotationRepository annotationRepository, ContentRepository contentRepository) {
         this.annotationRepository = annotationRepository;
         this.contentRepository = contentRepository;
@@ -40,6 +42,20 @@ public class AnnotationController {
         content.setAnnotations(annotations);
         contentRepository.save(content);
         return new ResponseEntity<>(annotation, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> create(@RequestBody @Valid AnnotationRequest annotationRequest) {
+
+        AnnotationModel model = new AnnotationModel();
+
+        ContentModel content = contentRepository.findFirstByJsonLdContentId(annotationRequest.getId());
+        model.setContent(content);
+
+        model.setBody(annotationRequest.getBody());
+
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET)

@@ -1,4 +1,4 @@
-package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
+package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.joda.time.DateTime;

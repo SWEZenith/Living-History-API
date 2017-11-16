@@ -1,13 +1,14 @@
-package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
+package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationTarget;
 import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
 
 //@AnnotationValid
-public class Annotation {
+public class AnnotationRequest {
 
     /*
     * Example:
@@ -15,7 +16,7 @@ public class Annotation {
     * {
     *   "@context": "http://www.w3.org/ns/anno.jsonld",
     *   "id": "http://example.org/anno3",
-    *   "type": "Annotation",
+    *   "type": "AnnotationRequest",
     *   "creator": "http://example.org/user1",
     *   "created": "2015-01-28T12:00:00Z",
     *   "modified": "2015-01-29T09:00:00Z",
@@ -35,19 +36,6 @@ public class Annotation {
     * }
     *
     * */
-
-    public Annotation() {
-    }
-
-    public Annotation(String context, String type, String creator, DateTime created, DateTime modified, AnnotationBody body, AnnotationTarget target) {
-        this.context = context;
-        this.type = type;
-        this.creator = creator;
-        this.created = created;
-        this.modified = modified;
-        this.body = body;
-        this.target = target;
-    }
 
     @JsonProperty("@context")
     @NotNull

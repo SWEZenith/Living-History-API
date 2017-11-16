@@ -5,6 +5,7 @@ import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.utils.JsonUtils;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request.AnnotationRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AnnotationValidator implements ConstraintValidator<AnnotationValid, Annotation> {
+public class AnnotationValidator implements ConstraintValidator<AnnotationValid, AnnotationRequest> {
 
     @Override
     public void initialize(AnnotationValid annotationValid) {
@@ -21,7 +22,7 @@ public class AnnotationValidator implements ConstraintValidator<AnnotationValid,
     }
 
     @Override
-    public boolean isValid(Annotation annotationValue, ConstraintValidatorContext context) {
+    public boolean isValid(AnnotationRequest annotationValue, ConstraintValidatorContext context) {
         try {
             validate(annotationValue);
         } catch (Exception e) {
@@ -30,7 +31,7 @@ public class AnnotationValidator implements ConstraintValidator<AnnotationValid,
         return true;
     }
 
-    public static String validate(Annotation annotation) throws IOException, JsonLdError {
+    public static String validate(AnnotationRequest annotation) throws IOException, JsonLdError {
 
         ObjectMapper mp = new ObjectMapper();
         Object jsonObject = mp.convertValue(annotation, LinkedHashMap.class);

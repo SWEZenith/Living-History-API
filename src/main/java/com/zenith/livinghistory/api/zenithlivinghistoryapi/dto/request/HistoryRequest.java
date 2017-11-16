@@ -1,12 +1,13 @@
-package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
+package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.ContentItemModel;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.LocationBody;
 import org.joda.time.DateTime;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Content {
+public class HistoryRequest {
     /*
     * Example:
     *
@@ -25,10 +26,10 @@ public class Content {
     *
     * */
 
-    public Content() {
+    public HistoryRequest() {
     }
 
-    public Content(String contentType, String title, String description, String[] tags, DateTime date, LocationBody location, String creator) {
+    public HistoryRequest(String contentType, String title, String description, String[] tags, DateTime date, LocationBody location, String creator) {
 		this.contentType = contentType;
 		this.title = title;
 		this.description = description;
@@ -53,9 +54,22 @@ public class Content {
 
     private LocationBody location;
 
+    // jsonld creator id
     private String creator;
 
-    private List<Annotation> annotations;
+    private List<AnnotationRequest> annotations;
+
+    @JsonProperty("history_items")
+    private List<ContentItemModel> historyItems;
+
+
+    public List<ContentItemModel> getHistoryItems() {
+        return historyItems;
+    }
+
+    public void setHistoryItems(List<ContentItemModel> historyItems) {
+        this.historyItems = historyItems;
+    }
 
     public String getContentType() {
         return contentType;
@@ -121,11 +135,11 @@ public class Content {
         this.creator = creator;
     }
 
-    public List<Annotation> getAnnotations() {
+    public List<AnnotationRequest> getAnnotations() {
         return annotations;
     }
 
-    public void setAnnotations(List<Annotation> annotations) {
+    public void setAnnotations(List<AnnotationRequest> annotations) {
         this.annotations = annotations;
     }
 }

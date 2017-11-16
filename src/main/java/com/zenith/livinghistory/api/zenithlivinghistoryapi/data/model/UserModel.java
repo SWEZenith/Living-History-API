@@ -1,20 +1,24 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "\"user\"")
 public class UserModel extends BaseModel {
 
-    @Column(name = "username")
+    // ?
+    @Column(name = "jsonld_id")
+    private String jsonldId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
+    private List<ContentModel> histories = new ArrayList<>();
+
     private String username;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
     private String password;
 
     public String getUsername() {

@@ -1,15 +1,15 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi;
 
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationBody;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request.AnnotationRequest;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.request.AnnotationBody;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationTarget;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationType;
 import org.joda.time.DateTime;
 
 public class Example {
-    public static Annotation GetAnnotationInstance() {
+    public static AnnotationRequest GetAnnotationInstance() {
         final String CONTEXT = "http://www.w3.org/ns/anno.jsonld";
-        final String TYPE = "Annotation";
+        final String TYPE = "AnnotationRequest";
         final String CREATOR = "http://living-history.gkc.host/api/v1/users/gokce";
         final String BODY_TYPE = AnnotationType.TEXT;
         final String BODY_VALUE = "<p>Bir paragraf!</p>";
@@ -32,7 +32,7 @@ public class Example {
         annotationTarget.setType(TARGET_TYPE);
         annotationTarget.setFormat(TARGET_FORMAT);
 
-        Annotation annotation = new Annotation();
+        AnnotationRequest annotation = new AnnotationRequest();
         annotation.setContext(CONTEXT);
         annotation.setType(TYPE);
         annotation.setCreator(CREATOR);
