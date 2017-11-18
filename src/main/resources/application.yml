@@ -1,1 +1,5 @@
-zenith.security.jwt:  tokenExpirationTime: 15  refreshTokenExpTime: 60  tokenIssuer: ubormetanga  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
+zenith.security.jwt:
+  tokenExpirationTime: 360
+  refreshTokenExpTime: 720
+  tokenIssuer: ubormetanga
+  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus

@@ -19,9 +19,9 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.data.db;
 //
 //    @Override
 //    public void run(String... args) throws Exception {
-//        Annotation annotation = new Annotation(
+//        AnnotationModel annotation = new AnnotationModel(
 //                "http://www.w3.org/ns/anno.jsonld",
-//                "Annotation",   // TODO: replace with enum
+//                "AnnotationModel",   // TODO: replace with enum
 //                "http://example.org/user1",
 //                DateTime.now(),
 //                null,

@@ -1,13 +1,12 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.security.auth.request;
 
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.User;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.UserModel;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -52,10 +51,10 @@ public class RequestAuthenticationProvider implements AuthenticationProvider {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
 
-        User user = userService.findByUsername(username);
+        UserModel user = userService.findByUsername(username);
 
         if(user == null)
-            throw new UsernameNotFoundException("User not found: " + username);
+            throw new UsernameNotFoundException("UserModel not found: " + username);
 
         if (!encoder.matches(password, user.getPassword()))
             throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");

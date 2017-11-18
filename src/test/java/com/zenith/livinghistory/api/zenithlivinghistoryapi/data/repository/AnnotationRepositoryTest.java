@@ -1,7 +1,7 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository;
 
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.Example;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.*;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.AnnotationModel;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +22,11 @@ public class AnnotationRepositoryTest {
 
     @Test
     public void whenFindByCreator_thenReturnAnnotation() {
-        Annotation annotation = Example.GetAnnotationInstance();
+        AnnotationModel annotation = Example.GetAnnotationInstance();
 
         mongoTemplate.save(annotation);
 
-        Annotation foundAnnotation = annotationRepository.findFirstByCreator(annotation.getCreator());
+        AnnotationModel foundAnnotation = annotationRepository.findFirstByCreator(annotation.getCreator());
 
         // Exclude date fields to prevent false positive assertion errors caused by timezone.
         Assert.assertThat(annotation, new ReflectionEquals(foundAnnotation, "target", "body", "created", "modified"));

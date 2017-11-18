@@ -1,4 +1,4 @@
-package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
+package com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model;
 
 
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserStatus;
@@ -6,17 +6,17 @@ import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserType;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Users")
-public class User {
+public class UserModel {
     private String username;
     private String password;
     private String email;
     private UserStatus status;
     private UserType type;
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(String username, String password, String email, UserStatus status, UserType type) {
+    public UserModel(String username, String password, String email, UserStatus status, UserType type) {
         this.username = username;
         this.password = password;
         this.email = email;

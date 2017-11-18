@@ -1,6 +1,7 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
 
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.Example;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.AnnotationModel;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,11 +24,11 @@ import static org.assertj.core.api.Assertions.*;
 public class AnnotationJson {
 
     @Autowired
-    private JacksonTester<Annotation> json;
+    private JacksonTester<AnnotationModel> json;
 
     @Test
     public void testSerialize() throws Exception {
-        Annotation annotation = Example.GetAnnotationInstance();
+        AnnotationModel annotation = Example.GetAnnotationInstance();
         File jsonFile = new ClassPathResource("annotation.json").getFile();
         assertThat(this.json.write(annotation)).isEqualToJson(jsonFile);
     }
@@ -37,8 +38,8 @@ public class AnnotationJson {
         File jsonFile = new ClassPathResource("annotation.json").getFile();
         BufferedReader reader = Files.newBufferedReader(jsonFile.toPath());
         String jsonString = reader.lines().collect(Collectors.joining());
-        Annotation annotationExpected = Example.GetAnnotationInstance();
-        Annotation annotationActual = this.json.parseObject(jsonString);
+        AnnotationModel annotationExpected = Example.GetAnnotationInstance();
+        AnnotationModel annotationActual = this.json.parseObject(jsonString);
 
         Assert.assertThat(annotationExpected, new ReflectionEquals(annotationActual, "target", "body"));
         Assert.assertThat(annotationExpected.getBody(), new ReflectionEquals(annotationActual.getBody()));

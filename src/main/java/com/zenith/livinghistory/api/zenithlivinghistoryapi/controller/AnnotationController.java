@@ -1,15 +1,14 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.AnnotationModel;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.ContentModel;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.AnnotationRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.ContentRepository;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Content;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,9 +24,9 @@ public class AnnotationController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Annotation> create(@RequestBody @Valid Annotation annotation) {
-        Content content = contentRepository.findOne(annotation.getTarget().getId());
-        List<Annotation> annotations = content.getAnnotations();
+    public ResponseEntity<AnnotationModel> create(@RequestBody @Valid AnnotationModel annotation) {
+        ContentModel content = contentRepository.findOne(annotation.getTarget().getId());
+        List<AnnotationModel> annotations = content.getAnnotations();
         annotations.add(annotation);
         content.setAnnotations(annotations);
         contentRepository.save(content);
@@ -35,12 +34,12 @@ public class AnnotationController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Annotation> getAll() {
+    public List<AnnotationModel> getAll() {
         return this.annotationRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Annotation get(@PathVariable("id") String id) {
+    public AnnotationModel get(@PathVariable("id") String id) {
         return annotationRepository.findOne(id);
     }
 }

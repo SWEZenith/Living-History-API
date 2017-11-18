@@ -1,17 +1,20 @@
-package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
+package com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.utils.CascadeSave;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "Contents")
-public class Content implements Serializable {
-
+public class ContentModel implements Serializable {
     /*
     * Example:
     *
@@ -29,20 +32,6 @@ public class Content implements Serializable {
 	* }
     *
     * */
-
-    public Content() {
-    }
-
-    public Content(String contentType, String title, String description, String[] tags, DateTime date, LocationBody location, String creator) {
-		this.contentType = contentType;
-		this.title = title;
-		this.description = description;
-		this.tags = tags;
-		this.date = date;
-		this.location = location;
-		this.creator = creator;
-//		this.annotations = new ArrayList<>();
-	}
 
     @JsonProperty("@contentType")
     private String contentType;
@@ -63,16 +52,16 @@ public class Content implements Serializable {
 
     private String creator;
 
-//    @DBRef
-//    @CascadeSave
-//    @Field("annotations")
-    private List<Annotation> annotations;
+    @DBRef
+    @CascadeSave
+    @Field("annotations")
+    private List<AnnotationModel> annotations = new ArrayList<>();
 
-    public List<Annotation> getAnnotations() {
+    public List<AnnotationModel> getAnnotations() {
         return annotations;
     }
 
-    public void setAnnotations(List<Annotation> annotations) {
+    public void setAnnotations(List<AnnotationModel> annotations) {
         this.annotations = annotations;
     }
 
@@ -84,7 +73,6 @@ public class Content implements Serializable {
 		this.title = title;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
@@ -92,7 +80,6 @@ public class Content implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 
     public String getCreator() {
         return creator;
@@ -102,11 +89,9 @@ public class Content implements Serializable {
         this.creator = creator;
     }
 
-
 	public String[] getTags() { return tags; }
 
 	public void setTags(String[] tags) { this.tags = tags; }
-
 
 	public DateTime getDate() {
         return date;
@@ -116,7 +101,6 @@ public class Content implements Serializable {
         this.date = date;
     }
 
-
     public String getId() {
         return id;
     }
@@ -124,7 +108,6 @@ public class Content implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
-
 
     public String getContentType() {
         return contentType;
@@ -134,7 +117,6 @@ public class Content implements Serializable {
         this.contentType = contentType;
     }
 
-
     public LocationBody getLocation() {
         return location;
     }
@@ -143,4 +125,29 @@ public class Content implements Serializable {
         this.location = location;
     }
 
+    public class LocationBody implements Serializable {
+        /*
+        * Example:
+        *
+        * "location": {
+        * "longitude": -83.6945691,
+        * "latitude": 42.25475478
+        * },
+        *
+        * */
+
+        private double longitude;
+
+        private double latitude;
+
+
+        public double getLongitude() { return longitude; }
+
+        public void setLongitude (double longitude) { this.longitude = longitude; }
+
+
+        public double getLatitude () { return latitude; }
+
+        public void setLatitude (double latitude) { this.latitude = latitude; }
+    }
 }

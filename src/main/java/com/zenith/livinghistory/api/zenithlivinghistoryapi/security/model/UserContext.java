@@ -3,7 +3,7 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.security.model;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * User context.
+ * UserModel context.
  */
 public class UserContext {
 
@@ -17,7 +17,7 @@ public class UserContext {
 
     /**
      * Ctor.
-     * @param username - User Name.
+     * @param username - UserModel Name.
      */
     private UserContext(String username) {
 
@@ -26,7 +26,7 @@ public class UserContext {
 
     /**
      * Ctor.
-     * @param username - User Name.
+     * @param username - UserModel Name.
      * @return
      */
     public static UserContext create(String username) {

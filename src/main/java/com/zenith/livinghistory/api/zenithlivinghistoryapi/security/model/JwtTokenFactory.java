@@ -45,7 +45,7 @@ public class JwtTokenFactory {
 
     /**
      * Factory method for issuing new JWT token.
-     * @param userContext - User Context.
+     * @param userContext - UserModel Context.
      * @return - Access Token.
      */
     public AccessJwtToken createAccessJwtToken(UserContext userContext) {
@@ -72,7 +72,7 @@ public class JwtTokenFactory {
 
     /**
      * Factory method for issuing new refresh token.
-     * @param userContext - User Context.
+     * @param userContext - UserModel Context.
      * @return - Refresh Token.
      */
     public JwtToken createRefreshToken(UserContext userContext) {

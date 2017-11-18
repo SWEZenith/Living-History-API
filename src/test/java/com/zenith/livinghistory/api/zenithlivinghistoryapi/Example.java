@@ -1,17 +1,17 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi;
 
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationBody;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationTarget;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationType;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.AnnotationModel;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.AnnotationBody;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model.AnnotationTarget;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.AnnotationType;
 import org.joda.time.DateTime;
 
 public class Example {
-    public static Annotation GetAnnotationInstance() {
+    public static AnnotationModel GetAnnotationInstance() {
         final String CONTEXT = "http://www.w3.org/ns/anno.jsonld";
-        final String TYPE = "Annotation";
+        final String TYPE = "AnnotationModel";
         final String CREATOR = "http://living-history.gkc.host/api/v1/users/gokce";
-        final String BODY_TYPE = AnnotationType.TEXT;
+        final AnnotationType BODY_TYPE = AnnotationType.TEXT;
         final String BODY_VALUE = "<p>Bir paragraf!</p>";
         final String BODY_FORMAT = "text/html";
         final String BODY_LANGUAGE = "tr";
@@ -20,7 +20,7 @@ public class Example {
         final String TARGET_FORMAT = "image/jpeg";
 
         AnnotationBody annotationBody = new AnnotationBody();
-        annotationBody.setType(BODY_TYPE);
+        annotationBody.setType(BODY_TYPE.toString());
         annotationBody.setValue(BODY_VALUE);
         annotationBody.setFormat(BODY_FORMAT);
         annotationBody.setLanguage(BODY_LANGUAGE);
@@ -32,7 +32,7 @@ public class Example {
         annotationTarget.setType(TARGET_TYPE);
         annotationTarget.setFormat(TARGET_FORMAT);
 
-        Annotation annotation = new Annotation();
+        AnnotationModel annotation = new AnnotationModel();
         annotation.setContext(CONTEXT);
         annotation.setType(TYPE);
         annotation.setCreator(CREATOR);

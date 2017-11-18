@@ -1,8 +1,7 @@
-package com.zenith.livinghistory.api.zenithlivinghistoryapi.dto;
+package com.zenith.livinghistory.api.zenithlivinghistoryapi.data.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -10,11 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
 
 @Document(collection = "Annotations")
 //@AnnotationValid
-public class Annotation implements Serializable {
+public class AnnotationModel implements Serializable {
 
     /*
     * Example:
@@ -22,7 +20,7 @@ public class Annotation implements Serializable {
     * {
     *   "@context": "http://www.w3.org/ns/anno.jsonld",
     *   "id": "http://example.org/anno3",
-    *   "type": "Annotation",
+    *   "type": "AnnotationModel",
     *   "creator": "http://example.org/user1",
     *   "created": "2015-01-28T12:00:00Z",
     *   "modified": "2015-01-29T09:00:00Z",
@@ -43,10 +41,10 @@ public class Annotation implements Serializable {
     *
     * */
 
-    public Annotation() {
+    public AnnotationModel() {
     }
 
-    public Annotation(String context, String type, String creator, DateTime created, DateTime modified, AnnotationBody body, AnnotationTarget target) {
+    public AnnotationModel(String context, String type, String creator, DateTime created, DateTime modified, AnnotationBody body, AnnotationTarget target) {
         this.context = context;
         this.type = type;
         this.creator = creator;
@@ -147,4 +145,127 @@ public class Annotation implements Serializable {
     public void setTarget(AnnotationTarget target) {
         this.target = target;
     }
+
+    public class AnnotationBody implements Serializable {
+
+        /*
+        * Example:
+        *
+        * "body": {
+        *   "type" : "TextualBody",
+        *   "value" : "<p>Paragraf!</p>",
+        *   "format" : "text/html",
+        *   "language" : "tr",
+        *   "creator": "http://example.net/user2",
+        *   "created": "2014-06-02T17:00:00Z"
+        * }
+        *
+        * */
+
+        private String type;
+
+        private String value;
+
+        private String format;
+
+        private String language;
+
+        private String creator;
+
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+        private DateTime created;
+
+        public String getCreator() {
+            return creator;
+        }
+
+        public void setCreator(String creator) {
+            this.creator = creator;
+        }
+
+        public DateTime getCreated() {
+            return created;
+        }
+
+        public void setCreated(DateTime created) {
+            this.created = created;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public String getFormat() {
+            return format;
+        }
+
+        public void setFormat(String format) {
+            this.format = format;
+        }
+
+        public String getLanguage() {
+            return language;
+        }
+
+        public void setLanguage(String language) {
+            this.language = language;
+        }
+    }
+
+    public class AnnotationTarget implements Serializable {
+
+        /*
+        * Example:
+        *
+        * "target": {
+        *   "id": "http://example.com/image1.jpg#xywh=100,100,300,300",
+        *   "type": "Image",
+        *   "format": "image/jpeg"
+        * }
+        *
+        * */
+
+        private String id;
+
+        private String type;
+
+        private String format;
+
+        public String getFormat() {
+            return format;
+        }
+
+        public void setFormat(String format) {
+            this.format = format;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+    }
+
 }
