@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 
 @Document(collection = "Annotations")
-//@AnnotationValid
+@AnnotationValid
 public class Annotation implements Serializable {
 
     /*

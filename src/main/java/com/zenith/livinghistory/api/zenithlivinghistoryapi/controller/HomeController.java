@@ -1,5 +1,7 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
     @RequestMapping("/")
-    public String home() {
-        return "This is Living-History Api running on Google Cloud";
+    public ResponseEntity<String> home() {
+        return new ResponseEntity<>("This is Living-History Api running on Google Cloud", HttpStatus.OK);
     }
 }

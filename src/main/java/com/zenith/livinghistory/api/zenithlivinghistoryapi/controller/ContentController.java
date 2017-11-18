@@ -24,12 +24,12 @@ public class ContentController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Content> getAll() {
-        return this.contentRepository.findAll();
+    public ResponseEntity<List<Content>> getAll() {
+        return new ResponseEntity<>(this.contentRepository.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Content get(@PathVariable("id") String id) {
-        return contentRepository.findOne(id);
+    public ResponseEntity<Content> get(@PathVariable("id") String id) {
+        return new ResponseEntity<>(contentRepository.findOne(id), HttpStatus.OK);
     }
 }

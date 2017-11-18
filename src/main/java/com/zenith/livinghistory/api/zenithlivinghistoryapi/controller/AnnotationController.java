@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +36,12 @@ public class AnnotationController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Annotation> getAll() {
-        return this.annotationRepository.findAll();
+    public ResponseEntity<List<Annotation>> getAll() {
+        return new ResponseEntity<>(this.annotationRepository.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Annotation get(@PathVariable("id") String id) {
-        return annotationRepository.findOne(id);
+    public ResponseEntity<Annotation> get(@PathVariable("id") String id) {
+        return new ResponseEntity<>(annotationRepository.findOne(id), HttpStatus.OK);
     }
 }

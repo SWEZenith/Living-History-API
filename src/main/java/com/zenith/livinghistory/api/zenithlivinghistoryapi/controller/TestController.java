@@ -1,22 +1,32 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jsonldjava.core.JsonLdError;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationValidator;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/test")
 public class TestController {
+    private ObjectMapper mapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
-    public String test() {
-        return "{\n" +
+    public TestController() {
+        this.mapper = new ObjectMapper();
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<Map> test() throws IOException {
+        String jsonString = "{\n" +
                 "   \"@context\": \"http://www.w3.org/ns/anno.jsonld\",\n" +
                 "   \"id\": \"http://example.org/anno3\",\n" +
                 "   \"type\": \"Annotation\",\n" +
@@ -37,10 +47,16 @@ public class TestController {
                 "       \"format\": \"image/jpeg\"\n" +
                 "   }\n" +
                 "}";
+
+        Map<String, Object> annotationExample = this.mapper.readValue(jsonString, Map.class);
+
+        return new ResponseEntity<>(annotationExample, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/")
-    public String test(@RequestBody Annotation annotation) throws IOException, JsonLdError {
-        return AnnotationValidator.validate(annotation);
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Annotation> test(@RequestBody Annotation annotation) throws IOException, JsonLdError {
+        String jsonString = AnnotationValidator.validate(annotation);
+        Annotation response = this.mapper.readValue(jsonString, Annotation.class);
+        return new ResponseEntity<>(response, HttpStatus.OK) ;
     }
 }
