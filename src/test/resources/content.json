@@ -1,0 +1,86 @@
+{
+  "url": "http://living-history.gkc.host/contents/5a10188af007950001fdbd3d",
+  "id": "5a10188af007950001fdbd3d",
+  "title": "Once upon a time... Bebek",
+  "tags": [
+    "Bebek",
+    "seaview",
+    "historic"
+  ],
+  "day": 10,
+  "month": 10,
+  "year": 1960,
+  "location": {
+    "longitude": 29.0422726,
+    "latitude": 41.0763304,
+    "name": "Bebek in 1950s"
+  },
+  "creator": "http://living-history.gkc.host/api/v1/users/pinar",
+  "annotations": [
+    {
+      "id": "5a11dd5cfc2199000146c922",
+      "type": "Annotation",
+      "creator": "http://living-history.gkc.host/api/v1/users/bulent",
+      "created": "2015-01-28T12:00:00Z",
+      "modified": "2015-01-29T09:00:00Z",
+      "body": {
+        "type": "TextualBody",
+        "value": "I remember that november. It was unforgettable.",
+        "format": "text/html",
+        "language": "en",
+        "creator": "http://localhost:8080/api/v1/users/bulent",
+        "created": "2015-01-28T12:00:00Z"
+      },
+      "target": {
+        "id": "http://living-history.gkc.host/api/v1/stories/5a10188af007950001fdbd3c#xywh=100,100,50,50",
+        "type": "Image",
+        "format": "image/jpeg"
+      },
+      "@context": "http://www.w3.org/ns/anno.jsonld"
+    },
+    {
+      "id": "5a11dfd7fc2199000146c926",
+      "type": "Annotation",
+      "creator": "http://living-history.gkc.host/api/v1/users/bulent",
+      "created": "2015-01-28T12:00:00Z",
+      "modified": "2015-01-29T09:00:00Z",
+      "body": {
+        "type": "TextualBody",
+        "value": "A lovely picture from previous summer. Seaside cafés and restaurants in Bebek are awesome. Also view of Bosphorus is astonishing when you walk around Bebek Parki. <img src=\"https://d1rcls0x4prdpf.cloudfront.net/uploads/media_content/picture/211/medium_istanbul_bebek_parki.jpg\"/>",
+        "format": "text/html",
+        "language": "en",
+        "creator": "http://localhost:8080/api/v1/users/bulent",
+        "created": "2015-01-28T12:00:00Z"
+      },
+      "target": {
+        "id": "http://living-history.gkc.host/api/v1/stories/5a10188af007950001fdbd3b#char=10,15",
+        "type": "Text",
+        "format": "text/plain"
+      },
+      "@context": "http://www.w3.org/ns/anno.jsonld"
+    }
+  ],
+  "story_items": [
+    {
+      "type": "text",
+      "content": "Bebek was a popular residential district under Ottoman rule, and continues to be so today. Its population reflected the diverse society of the time, which is still visible in Bebek's historic architecture and contemporary constituencies.",
+      "id": "5a10188af007950001fdbd3b"
+    },
+    {
+      "type": "image",
+      "content": "https://i.pinimg.com/originals/af/ed/49/afed49294f8bf4df65b87a3be06d7345.jpg",
+      "id": "5a10188af007950001fdbd3c"
+    },
+    {
+      "type": "text",
+      "content": "Bebek is also home to Boğaziçi Üniversitesi, i.e. Bosphorus University, a public university established in 1971 that is one of Turkey's premier institutions of higher education. The university occupies the buildings and grounds of the now-defunct higher education division of Robert College, a historic American academic institution founded in 1863 by wealthy New York merchant Christopher Robert and American missionary and educator Cyrus Hamlin.",
+      "id": "5a10188af007950001fdbd3d"
+    },
+    {
+      "type": "image",
+      "content": "https://www.theistanbulinsider.com/wp-content/uploads/2011/09/bebek-istanbul.jpg",
+      "id": "5a10188af007950001fdbd3f"
+    }
+  ],
+  "cover_image": "https://i.pinimg.com/originals/af/ed/49/afed49294f8bf4df65b87a3be06d7345.jpg"
+}
