@@ -12,7 +12,6 @@ public class LocationBody implements Serializable {
     * "location": {
     * "longitude": -83.6945691,
     * "latitude": 42.25475478
-    * "name": Bebek
   	* },
     *
     * */
@@ -20,26 +19,14 @@ public class LocationBody implements Serializable {
     public LocationBody() {
     }
 
-    public LocationBody(double longitude, double latitude, String name) {
+    public LocationBody(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
-        this.name = name;
-
     }
 
     private double longitude;
 
     private double latitude;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	private String name ;
 
 
     public double getLongitude() { return longitude; }

@@ -20,8 +20,7 @@ public class Content implements Serializable {
     * Example:
     *
   	* {
-    * "id": <id>
-    * "url": http://zenith.com/contents/[id]
+    * "contentType": "Image",
     * "title": "Bebek was not so crowded",
     * "description": "https://goo.gl/XQxhTt",
     * "tags": ["Bebek", "2015", "Seaside"],
@@ -35,25 +34,33 @@ public class Content implements Serializable {
     *
     * */
 
+    public Content() {
+    }
 
-	private String url;
+    public Content(String contentType, String title, String description, String[] tags, DateTime date, LocationBody location, String creator) {
+		this.contentType = contentType;
+		this.title = title;
+		this.description = description;
+		this.tags = tags;
+		this.date = date;
+		this.location = location;
+		this.creator = creator;
+	}
+
+    @JsonProperty("@contentType")
+    private String contentType;
 
     @Id
     private String id;
 
     private String title;
 
+    @Indexed
+    private String description;
+
 	private String[] tags;
 
-	@JsonProperty ("story_items")
-	@Field ("story_items")
-	private List<StoryItem> storyItems = new ArrayList<>();
-
-	private int day;
-
-	private int month;
-
-	private int year;
+    private DateTime date;
 
     private LocationBody location;
 
@@ -88,13 +95,6 @@ public class Content implements Serializable {
         this.annotations = annotations;
     }
 
-	public String getUrl() {
-		return "http://living-history.gkc.host/contents/" + this.id;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -102,6 +102,16 @@ public class Content implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 
     public String getCreator() {
         return creator;
@@ -111,30 +121,38 @@ public class Content implements Serializable {
         this.creator = creator;
     }
 
-	public List<StoryItem> getStoryItems() { return storyItems; }
 
-	public void setStoryItems(List<StoryItem> storyItems) { this.storyItems = storyItems; }
 	public String[] getTags() { return tags; }
 
 	public void setTags(String[] tags) { this.tags = tags; }
 
-	public int getDay() { return day; }
 
-	public void setDay(int day) { this.day = day; }
+	public DateTime getDate() {
+        return date;
+    }
 
-	public int getMonth() { return month; }
+    public void setDate(DateTime date) {
+        this.date = date;
+    }
 
-	public void setMonth(int month) { this.month = month; }
-
-	public int getYear() { return year; }
-
-	public void setYear(int year) { this.year = year; }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
 
     public LocationBody getLocation() {
         return location;
