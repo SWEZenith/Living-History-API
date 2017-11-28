@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnnotationRepository extends MongoRepository<Annotation, String> {
-    Annotation findFirstByCreator(String creator);
+	Annotation findFirstByCreator(String creator);
 }

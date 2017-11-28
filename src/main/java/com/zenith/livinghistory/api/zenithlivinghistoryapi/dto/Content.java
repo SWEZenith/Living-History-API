@@ -59,6 +59,16 @@ public class Content implements Serializable {
 
     private String creator;
 
+	public DateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(DateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	private DateTime createdAt;
+
     @DBRef
     @CascadeSave
     @Field("annotations")

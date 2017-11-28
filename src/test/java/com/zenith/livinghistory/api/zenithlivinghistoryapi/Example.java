@@ -1,10 +1,13 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi;
 
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationBody;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationTarget;
-import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.AnnotationType;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserStatus;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.enums.UserType;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.*;
 import org.joda.time.DateTime;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Example {
     public static Annotation GetAnnotationInstance() {
@@ -43,4 +46,90 @@ public class Example {
 
         return annotation;
     }
+
+
+
+	/*
+* Example:
+*
+  * {
+* "id": <id>
+* "url": http://zenith.com/contents/[id]
+* "title": "Bebek was not so crowded",
+* "description": "https://goo.gl/XQxhTt",
+* "tags": ["Bebek", "2015", "Seaside"],
+* "date": "2017-10-31",
+* "location": {
+* "longitude": -83.6945691,
+* "latitude": 42.25475478
+* },
+* "creator": "http://example.net/api/v1/users/pinar"
+* }
+*
+* */
+    public static Content GetContentInstance(){
+		final String URL = "Annotation";
+		final String TITLE = "Annotation";
+		final String DESCRIPTION = "Annotation";
+		final String TAGS = "Annotation";
+		final String DATE = "Annotation";
+		final String LOCATION = "Annotation";
+		final String LONGITUDE = "Annotation";
+		final String LATITUDE = "Annotation";
+		final String CREATOR = "Annotation";
+
+
+		Content content = new Content();
+		content.setUrl(URL);
+		content.setTitle(TITLE);
+
+		StoryItem si = new StoryItem();
+		si.setContent("foo");
+
+
+		List<StoryItem> list = new ArrayList<StoryItem>();
+
+		list.add(si);
+
+		content.setStoryItems(list);
+
+
+		ArrayList<String> stringList = new ArrayList<String>();
+
+		stringList.add("foo");
+
+		content.setTags(null);
+
+		content.setDay(5);
+
+		content.setMonth(5);
+
+		content.setLocation(new LocationBody());
+
+		content.setCreator("foo");
+
+		return content;
+	}
+
+
+	public static User GetUserInstance(){
+		final String  username = "foo";
+		final String  password = "foo";
+		final String  email = "foo";
+		final UserStatus status =  UserStatus.ACTIVE;
+		final UserType type =  UserType.STANDARD;
+
+
+
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setStatus(status);
+		user.setType(type);
+
+
+
+		return user;
+	}
 }
