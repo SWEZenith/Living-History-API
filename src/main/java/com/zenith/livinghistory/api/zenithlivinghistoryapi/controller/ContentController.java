@@ -1,7 +1,9 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.ReverseGeocodingProvider;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.ContentRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Content;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.LocationBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,22 @@ public class ContentController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Content> create(@RequestBody Content content) {
+
+        LocationBody locationBody = content.getLocation();
+        if (locationBody != null && locationBody.getLatitude() != 0 && locationBody.getLongitude() != 0) {
+            ReverseGeocodingProvider geocodingProvider = new ReverseGeocodingProvider();
+            List<String> placeNames = geocodingProvider.getPlaceNamesofLocation(
+                    locationBody.getLatitude(),
+                    locationBody.getLongitude());
+
+            if(placeNames.size() > 0) {
+
+                String[] placeNamesArr = new String[placeNames.size()];
+                placeNamesArr = placeNames.toArray(placeNamesArr);
+                locationBody.setTags(placeNamesArr);
+            }
+        }
+
 		contentRepository.insert(content);
         return new ResponseEntity<>(content, HttpStatus.CREATED);
     }
