@@ -12,10 +12,25 @@ public class LocationBody implements Serializable {
     * "location": {
     * "longitude": -83.6945691,
     * "latitude": 42.25475478
-    * "name": Bebek
+    * "name": Bebek,
+    * "tags": ["Bebek", "Istanbul", "Turkey"]
   	* },
     *
     * */
+
+    //region Private Members
+
+    private String name ;
+
+    private double longitude;
+
+    private double latitude;
+
+    private String[] tags;
+
+    //endregion
+
+    //region Constructor
 
     public LocationBody() {
     }
@@ -24,14 +39,12 @@ public class LocationBody implements Serializable {
         this.longitude = longitude;
         this.latitude = latitude;
         this.name = name;
-
     }
+    //endregion
 
-    private double longitude;
+    //region Getter and Setters
 
-    private double latitude;
-
-	public String getName() {
+    public String getName() {
 		return name;
 	}
 
@@ -39,19 +52,22 @@ public class LocationBody implements Serializable {
 		this.name = name;
 	}
 
-	private String name ;
-
-
     public double getLongitude() { return longitude; }
 
 	public void setLongitude (double longitude) { this.longitude = longitude; }
-
 
 	public double getLatitude () { return latitude; }
 
 	public void setLatitude (double latitude) { this.latitude = latitude; }
 
+    public String[] getTags() {
+        return tags;
+    }
 
+    public void setTags(String[] tags) {
+        this.tags = tags;
+    }
+    //endregion
 
 }
 
