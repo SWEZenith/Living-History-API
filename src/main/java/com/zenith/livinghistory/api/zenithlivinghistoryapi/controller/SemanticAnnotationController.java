@@ -4,6 +4,7 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.LRUCache;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL.Queries;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL.SparQLExecutor;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.AnnotationRepository;
@@ -27,6 +28,8 @@ public class SemanticAnnotationController {
     private AnnotationRepository annotationRepository;
 
     private ContentRepository contentRepository;
+
+    private static LRUCache<String, JsonObject> propertyRepository = new LRUCache<>(3);
 
     //endregion
 
@@ -113,8 +116,6 @@ public class SemanticAnnotationController {
         } else {
 
         }
-
-
     }
 
     //endregion
@@ -158,15 +159,20 @@ public class SemanticAnnotationController {
     public ResponseEntity<Object> getBodyProperties(@RequestBody  String body) {
 
         String iri = new JsonParser().parse(body).getAsJsonObject().get("iri").getAsString();
-        JsonObject response;
-        boolean isCity = this.isCity(iri);
+        JsonObject response = propertyRepository.get(iri);
 
-        if (isCity)
-            response = getCityProperties(iri);
-        else
-            response = getIndividualProperties(iri);
+        if (response == null) {
 
-        response.addProperty("type", (isCity ? "City" : "Person"));
+            boolean isCity = this.isCity(iri);
+
+            if (isCity)
+                response = getCityProperties(iri);
+            else
+                response = getIndividualProperties(iri);
+
+            response.addProperty("type", (isCity ? "City" : "Person"));
+            propertyRepository.put(iri, response);
+        }
 
         return new ResponseEntity<>(response.toString(), HttpStatus.OK);
     }
