@@ -1,7 +1,9 @@
 package com.zenith.livinghistory.api.zenithlivinghistoryapi.controller;
 
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.ReverseGeocodingProvider;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.AnnotationRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.ContentRepository;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Content;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.LocationBody;
 import org.springframework.http.HttpStatus;
@@ -12,10 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/contents")
 public class ContentController {
-    private ContentRepository contentRepository;
 
-    public ContentController(ContentRepository contentRepository) {
+    private ContentRepository contentRepository;
+    private AnnotationRepository annotationRepository;
+
+    public ContentController(ContentRepository contentRepository, AnnotationRepository annotationRepository) {
         this.contentRepository = contentRepository;
+        this.annotationRepository = annotationRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -53,6 +58,25 @@ public class ContentController {
     @RequestMapping(method = RequestMethod.GET, value = "/search/{keyword}")
     public ResponseEntity<List<Content>> searchContent(@PathVariable("keyword") String keyword) {
 
-        return new ResponseEntity<>(contentRepository.findContentByKeyword(keyword), HttpStatus.OK);
+
+        List<Annotation> annotations = annotationRepository.findAnnotationsByKeyword(keyword);
+        List<Content> contents = contentRepository.findContentByKeyword(keyword);
+
+        if (annotations.size() > 0) {
+
+            for (int i = 0; i < annotations.size(); i++) {
+
+                String[] parts = annotations.get(i).getTarget().getId().split("/");
+                String storyIdentifier = parts[parts.length-1].split("#")[0];
+
+                Content content = contentRepository.findContentByStoryItemId(storyIdentifier);
+                boolean doesContentAlreadyExist = contents.stream().anyMatch(c -> c.getId().equals(content.getId()));
+
+                if(doesContentAlreadyExist == false)
+                    contents.add(content);
+            }
+        }
+
+        return new ResponseEntity<>(contents, HttpStatus.OK);
     }
 }
