@@ -14,4 +14,7 @@ public interface AnnotationRepository extends MongoRepository<Annotation, String
 
 	@Query("{ creator: { $regex: 'http://living-history.gkc.host/api/v1/users/?0' } }")
 	List<Annotation> findAnnotationsByUsername(String username);
+
+	@Query("{$text: { $search: ?0 }}")
+	List<Annotation> findAnnotationsByKeyword(String keyword);
 }
