@@ -29,7 +29,7 @@ public class SemanticAnnotationController {
 
     private ContentRepository contentRepository;
 
-    private static LRUCache<String, JsonObject> propertyRepository = new LRUCache<>(3);
+    private static LRUCache<String, JsonObject> propertyRepository = new LRUCache<>(10);
 
     //endregion
 
