@@ -5,8 +5,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.LRUCache;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL.DTO.QueryProperty;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL.PropertyRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL.Queries;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL.SparQLExecutor;
+import com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL.enums.IRITypes;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.AnnotationRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.data.repository.ContentRepository;
 import com.zenith.livinghistory.api.zenithlivinghistoryapi.dto.Annotation;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -108,14 +114,58 @@ public class SemanticAnnotationController {
 
     private void createContentTagsImplicitly(Content content, Annotation annotation) {
 
-        boolean isCity = this.isCity(annotation.getBody().getId());
-        String[] tags = content.getTags();
+        String iri = annotation.getBody().getId();
+        List<String> existingTags = new ArrayList<>(Arrays.asList(content.getTags()));
 
-        if(isCity) {
+        IRITypes iriType = this.isCity(iri) ? IRITypes.City : IRITypes.Individual;
+        List<String> newTags = getTagsOfIRI(iri, iriType);
 
-        } else {
+        for (String tag : newTags) {
 
+            if (!existingTags.contains(tag))
+                existingTags.add(tag);
         }
+
+        content.setTags(existingTags.toArray(new String[existingTags.size()]));
+        contentRepository.save(content);
+    }
+
+    private List<String> getTagsOfIRI(String iri, IRITypes iriType) {
+
+        List<String> tags = new ArrayList<>();
+
+        for (QueryProperty property : PropertyRepository.getProperties(iriType)) {
+
+            String queryString = String.format(
+                    Queries.getTags,
+                    property.isDirect() ? "?value" : "?label",
+                    iri,
+                    property.getName(),
+                    property.isDirect()
+                            ? Queries.langFilter
+                            : (String.format(Queries.subQuery, property.getValueProperty()))
+            );
+
+            SparQLExecutor executor = new SparQLExecutor();
+
+            try {
+                JsonArray results = executor.execute(queryString);
+
+                for (int i = 0; i < results.size(); i++){
+
+                    JsonObject item = results.get(i).getAsJsonObject();
+
+                    if (property.isDirect() && item.get("value") != null)
+                        tags.add(item.get("value").getAsJsonObject().get("value").getAsString());
+                    else if(!property.isDirect() && item.get("label") != null)
+                        tags.add(item.get("label").getAsJsonObject().get("value").getAsString());
+                }
+            } catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }
+
+        return tags;
     }
 
     //endregion

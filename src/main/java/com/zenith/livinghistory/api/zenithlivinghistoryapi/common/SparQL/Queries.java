@@ -2,6 +2,7 @@ package com.zenith.livinghistory.api.zenithlivinghistoryapi.common.SparQL;
 
 public final class Queries {
 
+    //region Semantic Body query
     /**
      * @param - The text that will be searched as city and person.
      */
@@ -33,8 +34,9 @@ public final class Queries {
                     + "}"
                     + "}"
                     + "}";
+    //endregion
 
-
+    //region Query to differentiate whether iri is city or not.
     public static String isCity =
             "PREFIX  dbo: <http://dbpedia.org/ontology/>\n"
             + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
@@ -50,7 +52,9 @@ public final class Queries {
             + "}"
             + "GROUP BY"
             + "?label";
+    //endregion
 
+    //region Query to get properties of city.
     public static String getCityProperties =
             "PREFIX  dbo: <http://dbpedia.org/ontology/>\n"
             + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
@@ -73,7 +77,9 @@ public final class Queries {
             + "GROUP BY "
             + "?label "
             + "LIMIT 1";
+    //endregion
 
+    //region Query to get properties of individual.
     public static String getIndividualProperties =
             "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
             + "PREFIX  dbo: <http://dbpedia.org/ontology/>\n"
@@ -99,20 +105,30 @@ public final class Queries {
             + "}"
             + "GROUP BY "
             + "?name ?jobTitle";
+    //endregion
 
-    static String getTagsOfIndividual =
-            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
-            + "PREFIX  dbo: <http://dbpedia.org/ontology/>\n"
-            + "SELECT\n"
-            + "?name\n" +
-            "MIN(?job)\n" +
-            "WHERE\n" +
-            "{\n" +
-            "    OPTIONAL { <http://dbpedia.org/resource/Donald_Trump>  foaf:name  ?name }\n" +
-            "    OPTIONAL { <http://dbpedia.org/resource/Donald_Trump>  dbo:occupation  ?occupation }\n" +
-            "    OPTIONAL { ?occupation dbo:title ?job}\n" +
+    //region Query to get tags of an individual or a city.
+
+    public static String getTags = "" +
+            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
+            "PREFIX  dbo: <http://dbpedia.org/ontology/>\n" +
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+
+            "SELECT DISTINCT\n" +
+            "%1$s\n" +
+            "WHERE {" +
+            "OPTIONAL {\n" +
+            "<%2$s> %3$s ?value\n" +
+            "%4$s"+
             "}\n" +
-            "GROUP BY\n" +
-            "                ?name\n" +
-            " ";
+            "}";
+
+    public static String langFilter = "FILTER langMatches( lang(?value), \"EN\" )\n";
+    public static String subQuery =
+            "OPTIONAL {" +
+            "?value %1$s ?label\n" +
+            "FILTER langMatches( lang(?label), \"EN\" )\n" +
+            "}\n";
+
+    //endregion
 }
