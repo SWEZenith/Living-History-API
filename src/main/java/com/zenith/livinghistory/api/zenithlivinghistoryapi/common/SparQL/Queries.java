@@ -81,30 +81,35 @@ public final class Queries {
 
     //region Query to get properties of individual.
     public static String getIndividualProperties =
-            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
-            + "PREFIX  dbo: <http://dbpedia.org/ontology/>\n"
-            + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-            + "SELECT "
-            + "?name "
-            + "?jobTitle "
-            + "(SAMPLE(?geburtstag)     AS ?birthDate) "
-            + "(SAMPLE(?homeTownLabel)  AS ?birthPlace) "
-            + "(SAMPLE(?thumbnail)      AS ?image) "
-            + "(SAMPLE(?webSite)        AS ?webPage) "
-            + "WHERE"
-            + "{"
-            + "<%1$s> foaf:name                   ?name."
-            + "<%1$s> dbo:birthDate               ?geburtstag."
-            + "<%1$s> dbo:birthPlace              ?homeTown."
-            + "<%1$s> dbo:occupation              ?occupation."
-            + "<%1$s> dbo:thumbnail               ?thumbnail."
-            + "<%1$s> dbo:wikiPageExternalLink    ?webSite."
-            + "?homeTown rdfs:label ?homeTownLabel."
-            + "?occupation dbo:title ?jobTitle."
-            + "FILTER langMatches( lang(?name), \"EN\" )"
-            + "}"
-            + "GROUP BY "
-            + "?name ?jobTitle";
+            "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
+            "PREFIX  dbo: <http://dbpedia.org/ontology/>\n" +
+            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
+            "SELECT * \n" +
+            "WHERE \n" +
+            "{\n" +
+            "OPTIONAL { \n" +
+            "<%1$s> foaf:name ?name.\n" +
+            "FILTER langMatches( lang(?name), \"EN\" )\n" +
+            "}\n" +
+            "OPTIONAL { \n" +
+            "<%1$s> dbo:birthDate?birthDate.\n" +
+            "}\n" +
+            "OPTIONAL { \n" +
+            "<%1$s> dbo:birthPlace ?homeTown.\n" +
+            "?homeTown rdfs:label ?birthPlace\n" +
+            "FILTER langMatches( lang(?birthPlace), \"EN\" )\n" +
+            "}\n" +
+            "OPTIONAL {\n" +
+            "<%1$s> dbo:occupation ?occupation.\n" +
+            "?occupation dbo:title ?jobTitle.\n" +
+            "}\n" +
+            "OPTIONAL { \n" +
+            "<%1$s> dbo:thumbnail ?image. \n" +
+            "}\n" +
+            "OPTIONAL { \n" +
+            "<%1$s> dbo:wikiPageExternalLink ?webPage.\n" +
+            "}\n" +
+            "}";
     //endregion
 
     //region Query to get tags of an individual or a city.
