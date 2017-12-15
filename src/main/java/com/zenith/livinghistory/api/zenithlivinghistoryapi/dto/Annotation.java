@@ -26,6 +26,7 @@ public class Annotation implements Serializable {
     *   "creator": "http://example.org/user1",
     *   "created": "2015-01-28T12:00:00Z",
     *   "modified": "2015-01-29T09:00:00Z",
+    *   "motivation": "describing",
     *   "body": {
     *       "type" : "TextualBody",
     *       "value" : "<p>Paragraf!</p>",
@@ -69,6 +70,8 @@ public class Annotation implements Serializable {
     @Indexed
     @NotNull
     private String creator;
+
+    private String motivation;
 
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
@@ -147,4 +150,8 @@ public class Annotation implements Serializable {
     public void setTarget(AnnotationTarget target) {
         this.target = target;
     }
+
+    public String getMotivation() { return motivation; }
+
+    public void setMotivation(String motivation) { this.motivation = motivation; }
 }
